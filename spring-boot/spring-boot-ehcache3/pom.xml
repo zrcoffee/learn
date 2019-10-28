@@ -4,12 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.zrcoffee</groupId>
+        <groupId>com.zrcoffee</groupId>
         <artifactId>sprint-boot</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>spring-boot-ehcache3</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>

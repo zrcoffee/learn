@@ -1,0 +1,134 @@
+#======================================#
+#========== Server settings ===========#
+#======================================#
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    session:
+      timeout: 1800
+  tomcat:
+    uri-encoding: UTF-8
+  connection-timeout: 60000
+
+#======================================#
+#========= Database settings ==========#
+#======================================#
+
+spring:
+  datasource:
+    druid:
+      # JDBC配置
+      url: jdbc:mysql://127.0.0.1:3306/springboot-ehcache?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+      # 连接池配置
+      # 初始化大小, 最大, 最小
+      initial-size: 5
+      max-active: 10
+      min-idle: 5
+      # 获取连接等待超时的时间
+      max-wait: 60000
+      # 开启PSCache, 并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 60000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      # 间隔多久进行检测需要关闭的空闲连接(单位是毫秒)
+      time-between-eviction-runs-millis: 60000
+      # 连接在连接池中最小和最大生存的时间(单位是毫秒)
+      min-evictable-idle-time-millis: 30000
+      max-evictable-idle-time-millis: 60000
+      # 配置监控统计拦截的filters, 去掉后监控界面sql无法统计, 'wall'用于防火墙
+      filters: stat,wall,slf4j
+
+      # 监控配置
+      # 配置WebStatFilter
+      web-stat-filter:
+        # 是否启用WEB状态监控(默认值为false)
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.css,*.gif,*.jpg,*.png,*.ico,/druid/*'
+      # 配置StatViewServlet
+      stat-view-servlet:
+        # 是否启用监控页面(默认值为false)
+        enabled: true
+        url-pattern: /druid/*
+        # 是否启用重置数据, 禁用HTML页面上的“Reset All”功能
+        reset-enable: false
+        login-username: admin
+        login-password: admin
+        # IP白名单, 多个英文逗号分隔
+        allow:
+        # IP黑名单, 多个英文逗号分隔
+        deny:
+
+      # 过滤器配置
+      filter:
+        stat:
+          enabled: true
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 2000
+        wall:
+          enabled: true
+          db-type: mysql
+          config:
+            delete-allow: false
+            drop-table-allow: false
+  # 缓存配置
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+
+#======================================#
+#========== MyBatis settings ==========#
+#======================================#
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存
+    cache-enabled: true
+    # 延迟加载的全局开关. 当开启时, 所有关联对象都会延迟加载
+    lazy-loading-enabled: false
+    # 当开启时, 任何方法的调用都会加载该对象的所有属性. 否则, 每个属性会按需加载
+    aggressive-lazy-loading: false
+    # 是否允许单一语句返回多结果集
+    multiple-result-sets-enabled: true
+    # 使用列标签代替列名
+    use-column-label: true
+    # 允许 JDBC 支持自动生成主键, 需要驱动支持
+    use-generated-keys: false
+    # 指定 MyBatis 应如何自动映射列到字段或属性
+    auto-mapping-behavior: partial
+    # 指定发现自动映射目标未知列（或者未知属性类型）的行为
+    auto-mapping-unknown-column-behavior: warning
+    # 配置默认的执行器
+    default-executor-type: simple
+    # 是否开启自动驼峰命名规则（camel case）映射
+    map-underscore-to-camel-case: true
+    # 指定本地缓存范围
+    local-cache-scope: session
+    # 当没有为参数提供特定的 JDBC 类型时, 为空值指定 JDBC 类型
+    jdbc-type-for-null: null
+    # 指定当结果集中值为 null 的时候是否调用映射对象的 setter（map 对象时为 put）方法
+    call-setters-on-nulls: false
+    # 当返回行的所有列都是空时, MyBatis 默认返回 null. 当开启这个设置时, MyBatis会返回一个空实例
+    return-instance-for-empty-row: false
+    # 允许使用方法签名中的名称作为语句参数名称. 为了使用该特性, 你的项目必须采用 Java 8 编译, 并且加上 -parameters 选项
+    use-actual-param-name: true
+
+#======================================#
+#============ Log settings ============#
+#======================================#
+
+logging:
+  config: classpath:logback-spring.xml
+  path: /Users/zhx-mac-pro-qtf/Documents/Workspace/0-Project/Java/springboot-ehcache3/logs
