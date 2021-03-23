@@ -1,0 +1,21 @@
+#======================================#
+#========== Server settings ===========#
+#======================================#
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    session:
+      timeout: 1800
+  tomcat:
+    uri-encoding: UTF-8
+  connection-timeout: 60000
+
+#======================================#
+#============ Log settings ============#
+#======================================#
+
+logging:
+  config: classpath:logback-spring.xml
+  path: logs
